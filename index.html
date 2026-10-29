@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>BGT 103 · Siber Güvenliğe Giriş Soru Bankası</title>
+  
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0c0d10">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BGT 103">
+  
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-title-group">
+        <h1 class="header-title">BGT 103</h1>
+        <span class="header-sub">Siber Güvenliğe Giriş · Sınav Hazırlık</span>
+      </div>
+      <div class="header-actions">
+        <button id="soundToggleBtn" class="icon-btn" title="Ses Aç/Kapat" aria-label="Ses Aç/Kapat">
+          <!-- Sound on svg -->
+          <svg id="soundIconOn" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+          <!-- Sound off svg -->
+          <svg id="soundIconOff" viewBox="0 0 24 24" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+        </button>
+        <button id="restartBtn" class="icon-btn" title="Yeniden Karıştır" aria-label="Yeniden Karıştır">
+          <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Exam Focus & Special Modes Bar -->
+    <div class="exam-focus-bar">
+      <button id="examFocusBtn" class="btn-exam-focus" type="button" title="Slaytlardaki sarı vurgulu tanımlar, 5 maddeli listeler ve anahtar kelimelerden oluşan sınav odaklı sorular">
+        <span class="exam-focus-left">
+          <span class="exam-focus-icon">🎯</span>
+          <span id="examFocusLabel">Sınavda En Çok Çıkma İhtimali Olanlar</span>
+        </span>
+        <span id="examFocusBadge" class="exam-focus-badge">60 Soru</span>
+      </button>
+
+      <div class="sub-mode-row">
+        <button id="hardModeBtn" class="btn-sub-mode hard" type="button" title="Birbirine çok benzeyen kavramlar, sayısal şaşırtmacalar ve I-II-III öncüllü zor sorular">
+          <span>🔥 Zor & Tuzaklı (<span id="hardCountBadge">20</span>)</span>
+        </button>
+        <button id="starredModeBtn" class="btn-sub-mode starred" type="button" title="Yıldızlayıp kaydettiğin zorlandığın soruları çöz">
+          <span>⭐ İşaretliler (<span id="starredCountBadge">0</span>)</span>
+        </button>
+        <button id="cheatSheetBtn" class="btn-sub-mode cheat" type="button" title="Tüm slaytlardaki sayılar, şifreler, 5'li listeler ve karıştırılan kavramlar özeti">
+          <span>📌 Hızlı Özet & Şifreler</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Cheat Sheet / Quick Summary Panel -->
+    <section id="cheatSheetPanel" class="cheatsheet-card" style="display:none;">
+      <div class="cheatsheet-header">
+        <div>
+          <h2 class="cheatsheet-title">📌 Sınav Öncesi Hızlı Özet & Şifreler</h2>
+          <p class="cheatsheet-sub">5 PDF'teki tüm sayılar, karıştırılan ikililer ve "Hangisi değildir?" listeleri</p>
+        </div>
+        <button id="closeCheatSheetBtn" class="btn-close-cheat" type="button">Sorulara Dön ✕</button>
+      </div>
+
+      <div class="cheatsheet-section">
+        <h3>🔢 1. Sınavda Çıkabilecek Tüm Sayılar & Tarihler</h3>
+        <div class="cheat-grid">
+          <div class="cheat-item"><strong>48 bit / 32 bit:</strong> Ethernet <b>MAC adresi 48 bit</b>, TCP/IP <b>IP adresi 32 bit</b> (Tuzak: Tersini verirler!)</div>
+          <div class="cheat-item"><strong>755 / 644:</strong> Wordpress <b>Klasör izinleri 755</b>, Kritik <b>Dosya izinleri 644</b> (`wp-config.php`, `.htaccess`)</div>
+          <div class="cheat-item"><strong>%4 / %96:</strong> Normal İnternet (Surface Web) <b>%4</b>, Derin İnternet (Deep Web) <b>%96</b> (%90 Deep + %6 Dark)</div>
+          <div class="cheat-item"><strong>%32:</strong> İnternetteki web sitelerinin <b>%32'si Wordpress</b> açık kaynaklı CMS kullanır</div>
+          <div class="cheat-item"><strong>5 -> 8 Katman:</strong> Deep Web eskiden <b>5 katmanlı</b> biliniyordu, günümüzde <b>8 katmandır</b> (Katman 1-4 arası <b>2/3 [3/2]</b>)</div>
+          <div class="cheat-item"><strong>3 / 11 Ağ Çeşidi:</strong> Ağlar genel olarak <b>3'e ayrılır</b> (LAN, WAN, VPN) fakat toplam <b>11 adet ağ çeşidi</b> vardır</div>
+          <div class="cheat-item"><strong>12 - 16 Karakter:</strong> Güçlü parolalar <b>12-16 karakter</b> (min. standart 6-8), sembol + büyük/küçük harf içermelidir</div>
+          <div class="cheat-item"><strong>750+ Protokol:</strong> Eski adı <b>Ethereal</b> olan <b>WireShark</b> 750'nin üzerinde protokolü analiz eder</div>
+          <div class="cheat-item"><strong>>1 GB/s vs 150 mb/s:</strong> <b>Li-Fi >1 GB/s</b> (Yüzlerce Tera Hz, 10.000 kat spektrum), <b>Wi-Fi ~150 mb/s</b> (2.4 GHz)</div>
+          <div class="cheat-item"><strong>17 Kat Artış:</strong> ABD'de 2009'dan beri bakanlık, banka ve askeri üslere saldırılar <b>17 kat</b> artmıştır</div>
+          <div class="cheat-item"><strong>2007 & 2008:</strong> <b>2007 Estonya</b> (Tallinn'in Bronz Askeri - ilk internet savaşı/DDoS), <b>2008 Gürcistan & ABD</b> (virüslü hafıza kartı)</div>
+          <div class="cheat-item"><strong>2012, 2013, 2018:</strong> <b>12 Ağu 2012</b> Flash bitti, <b>2013</b> Kali Linux (BackTrack'ten), <b>2018</b> Meltdown & Spectre (Intel/ARM/AMD)</div>
+        </div>
+      </div>
+
+      <div class="cheatsheet-section">
+        <h3>⚠️ 2. En Çok Karıştırılan Kavramlar & Şaşırtmacalar</h3>
+        <div class="cheat-list">
+          <div class="cheat-row"><span class="cheat-badge">CIA Triad vs AAA</span> <b>CIA Triad (Bilginin Korunumu):</b> Confidentiality (Gizlilik -> Erişim Kontrolü), Integrity (Bütünlük -> <i>MD5 Check / Hash</i>), Availability (Kullanılabilirlik). <br><b>AAA Konsepti (Erişim Kontrolü):</b> Authentication (Kimlik Doğrulama), Authorization (Yetkilendirme), Accounting (Aktivite İzlenmesi).</div>
+          <div class="cheat-row"><span class="cheat-badge">Firewall Mimarileri</span> <b>Proxy Destekli:</b> Başlangıç ve hedef arasında (Proxy Server). <br><b>Devre Seviyesi:</b> <i>"Seçici"</i> olarak adlandırılır, <i>talep doğrultusunda</i> çalışır. <br><b>Statik Paket Filtreleme:</b> <i>TCP/UDP</i> kontrolü, aşırı yoğunlukta geçişe izin vermez, port ve IP saklar. <br><b>Dinamik Paket Filtreleme:</b> <i>"Takip etme"</i> özelliği vardır, <i>büyük şirketlerde</i> verileri takip eder, <i>TCP</i> protokolüne göre çalışır. <br><b>Melez (Hibrit):</b> İki veya daha fazlasını barındırır.</div>
+          <div class="cheat-row"><span class="cheat-badge">Web Açıkları</span> <b>SQL Injection:</b> Veritabanı açığı (Structured Query Language). <br><b>XSS (Cross Site Scripting):</b> <i>Çapraz Kod Çalıştırma</i>; en çok <i>POST ve GET</i> kullanılan arama, galeri, yorumlarda olur. <br><b>CSRF / XSRF:</b> Siteye entegre kod (<i>hostile linking</i>), en çok <i>Opera</i> browser'da. <br><b>RFI (Remote File Include):</b> <i>Uzaktan dosya yükleme</i>; zararlı <i>Shell dosyaları</i> yüklenip <i>safe mode off</i> yapılır.</div>
+          <div class="cheat-row"><span class="cheat-badge">Deep Web 8 Katman</span> <b>1. Surface Web</b> (Normal arama motorları) · <b>2. Bergie Web</b> (İndekslenmeyen/son sayfa; <i>normal tarayıcıyla ulaşılan SON katman</i>) · <b>3. Deep Web</b> (<i>Proxy Web</i> [Tor'suz] ve <i>Tor Browser</i> [<code>.onion</code>]) · <b>4. Character Web</b> (Tor kısmı + özel cihaz/router isteyen <i>CSS: Closed Shell System</i>) · <b>5. Marianas Web</b> (<i>Kuantum bilgisayar</i> gerekir - D-Wave 2X) · <b>6. Katman 6</b> (Başı/sonu belirsiz, <i>kuantumla bile ulaşılamadı</i>) · <b>7. The Fog / Virus Soup</b> (Üst katmana çıkılmasın diye savaş) · <b>8. The Primarch System</b> (<i>"İnternetin Patronu"</i>, 2000'ler başı, <i>Level 17 Quantum TR.001 Level Function Lock</i>).</div>
+          <div class="cheat-row"><span class="cheat-badge">Ağ Araçları & Virüsler</span> <b>WireShark (Eski adı Ethereal):</b> Ağ trafiği ve 750+ protokol analizi. <br><b>SSL Strip ("Soymak"):</b> Şifreli <i>HTTPS trafiğini HTTP'ye</i> çevirir. <br><b>DNS Spoofing (EtterCap):</b> Kurbanı yerel ağda <i>farklı (sahte) sayfaya</i> yönlendirir. <br><b>DriftNet:</b> Kurbanın girdiği sitelerdeki <i>görsellerin (resimlerin) kopyasını</i> verir. <br><b>Nimda & SQLSammer:</b> Tarihte en çok nam salmış 2 <i>Ağ Virüsü</i> (Virus Maker: <i>TeraBIT</i>, <code>.Bat</code>).</div>
+        </div>
+      </div>
+
+      <div class="cheatsheet-section">
+        <h3>📋 3. "Aşağıdakilerden hangisi ... değildir?" Sorusu Olacak 5'li Listeler</h3>
+        <div class="cheat-grid">
+          <div class="cheat-item"><strong>Kurumsal Verinin 5 Özelliği:</strong><br>1. Entegre · 2. Yedeklenebilir · 3. Kaliteli · 4. Ölçeklenebilir · 5. Güvenli</div>
+          <div class="cheat-item"><strong>Güvenlik Açığı Çeşitleri (5 Madde):</strong><br>1. Buffer Taşması · 2. Doğrulanmış Girdi · 3. Race Durumları · 4. Güvenlik Uygulamalarındaki Zafiyetler · 5. Erişim Kontrol Problemleri</div>
+          <div class="cheat-item"><strong>Ağ Topolojileri (5 Madde):</strong><br>1. Yol (Bus) · 2. Yıldız (Star) · 3. Ağaç (Tree -> <i>Şirketler/Data Center</i>) · 4. Halka (Ring) · 5. Örgü (Mesh -> <i>WAN/Maliyetli</i>)</div>
+          <div class="cheat-item"><strong>Açık Kaynak 5 Önemli CMS:</strong><br>1. Wordpress (%32) · 2. Joomla · 3. Drupal · 4. Magento · 5. TYPO3</div>
+          <div class="cheat-item"><strong>ARP Broadcast Mesajındaki 3 Bilgi:</strong><br>1. Gönderen cihazın IP'si · 2. Gönderen cihazın MAC'i · 3. MAC'i öğrenilmek istenen cihazın IP'si (<i>Hedef MAC bilinmez!</i>)</div>
+          <div class="cheat-item"><strong>4 Temel Ağ Saldırı Türü:</strong><br>1. Engelleme (Kesme) · 2. Dinleme (Okuma) · 3. Değiştirme · 4. Oluşturma (Yeni trafik üretme)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Topic / PDF Filter -->
+    <div class="filter-bar">
+      <select id="topicSelect" class="topic-select" aria-label="Konu Seçimi">
+        <option value="all">Tüm Konular (5 PDF · Karışık)</option>
+      </select>
+      <button id="quickWrongBtn" class="btn-quick-wrong" style="display:none;" title="Şu ana kadar yapılan yanlışları çöz">
+        Yanlışları Çöz (<span id="quickWrongCount">0</span>)
+      </button>
+    </div>
+
+    <!-- Status & Progress -->
+    <section class="status-bar">
+      <div class="status-info">
+        <span id="questionCounter" class="q-counter">Soru 1 / 100</span>
+        <div class="score-stats">
+          <span class="stat-item correct"><strong id="correctCount">0</strong> Doğru</span>
+          <span class="stat-item wrong"><strong id="wrongCount">0</strong> Yanlış</span>
+        </div>
+      </div>
+      <div class="progress-track">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+    </section>
+
+    <!-- Main Quiz Card -->
+    <main id="quizCard" class="quiz-card">
+      <div class="question-header">
+        <span id="questionCategory" class="question-tag">1. Konu</span>
+        <div class="question-header-right">
+          <button id="starQuestionBtn" class="btn-star-q" type="button" title="Zorlandığım / İşaretli sorulara ekle">
+            <span id="starIcon">☆</span> <span id="starText">İşaretle</span>
+          </button>
+          <span id="questionNumberBadge" class="question-id-badge">#1</span>
+        </div>
+      </div>
+
+      <h2 id="questionText" class="question-title">
+        Soru yükleniyor...
+      </h2>
+
+      <div id="optionsList" class="options-list">
+        <!-- Rendered via JS -->
+      </div>
+
+      <div class="quiz-footer">
+        <div id="feedbackLine" class="feedback-line"></div>
+        <div id="explanationBox" class="explanation-box"></div>
+
+        <div class="footer-controls">
+          <label class="toggle-label" title="İşaretleyince otomatik sonraki soruya geçer">
+            <span class="toggle-switch">
+              <input type="checkbox" id="autoAdvanceToggle" checked>
+              <span class="toggle-slider"></span>
+            </span>
+            <span>Otomatik İlerle</span>
+          </label>
+
+          <div class="nav-buttons">
+            <button id="prevBtn" class="btn-prev" disabled title="Önceki Soru">
+              <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </button>
+            <button id="nextBtn" class="btn-next" disabled>
+              <span>Sonraki</span>
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Results Screen -->
+    <section id="resultsScreen" class="results-card">
+      <h2 class="results-header-title">Sınav Tamamlandı</h2>
+      <p class="results-header-sub" id="resultsSub">Çalışma tamamlandı.</p>
+
+      <div class="results-score-box">
+        <div class="score-cell c">
+          <span id="resCorrect" class="score-num">0</span>
+          <span class="score-label">Doğru</span>
+        </div>
+        <div class="score-cell w">
+          <span id="resWrong" class="score-num">0</span>
+          <span class="score-label">Yanlış</span>
+        </div>
+        <div class="score-cell p">
+          <span id="resPercent" class="score-num">%0</span>
+          <span class="score-label">Başarı</span>
+        </div>
+      </div>
+
+      <div class="results-buttons">
+        <button id="retryWrongBtn" class="btn-solid" style="display:none;">
+          Yanlışları Tekrar Çöz (<span id="wrongCountLabel">0</span>)
+        </button>
+        <button id="restartAllBtn" class="btn-outline">
+          Seçili Konuyu Yeniden Başlat
+        </button>
+      </div>
+    </section>
+
+    <!-- Minimal PWA Banner -->
+    <div id="pwaBanner" class="pwa-dock">
+      <div class="pwa-dock-info">
+        <strong>Uygulama olarak ekle</strong>
+        <span>Tarayıcı çubuğu olmadan tam ekran çalışır</span>
+      </div>
+      <button id="pwaInstallBtn" class="btn-pwa-install">Ekle</button>
+    </div>
+
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
